@@ -64,19 +64,14 @@ function openPage(page) {window.top.location.href = page}
 
 function run() {
   var values =  [document.getElementById("booktitle").value,document.getElementById("bookpage").value]
-  document.cookie = "booktitle="+values[0]+"; expires=Fri, 31 Dec 9999 23:59:59 GMT";
-  document.cookie = "bookpage="+values[1]+"; expires=Fri, 31 Dec 9999 23:59:59 GMT";
+  document.cookie = "data="+values[0]+"&&&&"+values[1]+"; expires=Fri, 31 Dec 9999 23:59:59 GMT";
 }
 
 function onLoad() {
   var names = []
   if (document.cookie.split("; ")[0].split('=')[1] !== '') {
-    var values = document.cookie.split("; ")
-      if (values[0].includes(booktitle+'=')) {
-var values = [values[0].split('=')[1],values[1].split('=')[1]]
-    } else {
-        var values = [values[1].split('=')[1],values[0].split('=')[1]]        
-    }
+    var values = document.cookie.split("; ")[0].split('&&&&')
+
     
   } else {
     var values = ['Book Title', 'Book Page']  
