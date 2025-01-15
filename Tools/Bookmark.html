@@ -68,10 +68,8 @@ function run() {
 }
 
 function onLoad() {
-  var names = []
-  if (document.cookie.split("; ")[0].split('=')[1] !== '') {
+  if (document.cookie.split("; ")[0].split('=')[1].split('&&&&')[1] !== '') {
     var values = document.cookie.split("; ")[0].split('=')[1].split('&&&&')
-    alert(values)
   } else {
     var values = ['Book Title', 'Book Page']  
   }
