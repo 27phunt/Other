@@ -24,6 +24,21 @@
         color: transparent;
         font-size: 12vh;
     }
+
+    button.hide {
+        color: transparent;
+        height: 0;
+        width: 0;
+        background-color: transparent;
+        border-color: transparent;
+    }
+    button.show {
+        color: black;
+        height: 2em;
+        width: 10em;
+        background-color: cyan;
+        border-color: black;
+    }
 </style>
 
 <body onload="run()">
@@ -32,13 +47,28 @@
     <hr>
     <h1 class="label" id="label"></h1>
     <hr>
+    <button id="blight" class="hide" onclick="addParam('darkmode=false')">Light Mode</button>
+    <button id="bdark" class="hide" onclick="addParam('darkmode=true')">Dark Mode</button>
 </body>
 <script>
+function addParam(input) {
+    window.top.location.href = window.top.location.href + '?' + input
+}
+
     function run() {
+        
+    if(!window.top.location.href.includes('darkmode=')) {
+        var buttons = [document.getElementById('blight'),document.getElementById('bdark')]
+        document.getElementById('label').innerHTML = 'Select a Mode'
+    for (x=0; x<2; x++) {
+        document.getElementById('blight').setAttribute('class','show')
+        buttons[x].setAttribute('class','show')
+}
+    }
         try {
             if (
                 window.top.location.href.split('?')[1].includes('darkmode=true')) {
-                document.body.style.backgroundColor='black'
+                document.body.style.backgroundColor = 'black'
                 document.body.style.color = 'blue'
             }
         } catch {}
