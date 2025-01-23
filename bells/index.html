@@ -58,12 +58,10 @@ function addParam(input) {
     function run() {
         
     if(!window.top.location.href.includes('darkmode=')) {
-        var buttons = [document.getElementById('blight'),document.getElementById('bdark')]
-        document.getElementById('label').innerHTML = 'Select a Mode'
-    for (x=0; x<2; x++) {
         document.getElementById('blight').setAttribute('class','show')
-        buttons[x].setAttribute('class','show')
-}
+        document.getElementById('bdark').setAttribute('class','show')
+        document.getElementById('label').innerHTML = 'Select a Mode'
+    return
     }
         try {
             if (
