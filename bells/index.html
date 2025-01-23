@@ -34,10 +34,12 @@
     }
     button.show {
         color: black;
-        height: 2em;
-        width: 10em;
+        height: 5em;
+        width: 20em;
         background-color: cyan;
         border-color: black;
+        font-size: 1em;
+        padding: none
     }
 </style>
 
@@ -60,7 +62,9 @@ function addParam(input) {
     if(!window.top.location.href.includes('darkmode=')) {
         document.getElementById('blight').setAttribute('class','show')
         document.getElementById('bdark').setAttribute('class','show')
-        document.getElementById('label').innerHTML = 'Select a Mode'
+        
+        document.getElementById('timer').innerHTML = 'Bell Timer'
+        document.getElementById('label').innerHTML = 'Select a Theme'
     return
     }
         try {
