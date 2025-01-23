@@ -24,7 +24,6 @@
 </style>
 
 <body>
-    <hr class="hide">
     <hr>
     <h1 class="timer" id="timer"></h1>
     <hr>
@@ -67,15 +66,19 @@
 
 const Target = getTarget()
 var x = setInterval(function() {
+    
     // Find the distance between now and the next target
     var distance = Target - new Date().getTime();
+    
     // Time calculations for hours, minutes and seconds
     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
     // Update the Timer Element
     document.getElementById("timer").innerHTML = hours + "h " +
         minutes + "m " + seconds + "s ";
+    
     // Refresh the page if time is up (loads the next time)
     if (distance < 0) {
         window.top.location.href = window.top.location.href
