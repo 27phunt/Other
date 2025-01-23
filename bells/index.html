@@ -67,13 +67,10 @@ function addParam(input) {
         document.getElementById('label').innerHTML = 'Select a Theme'
     return
     }
-        try {
-            if (
-                window.top.location.href.split('?')[1].includes('darkmode=true')) {
+            if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
                 document.body.style.backgroundColor = 'black'
                 document.body.style.color = 'blue'
             }
-        } catch {}
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
             for (x = 0; x < t.length; x++) {
                 var data = t[x].split(',')
@@ -84,21 +81,26 @@ function addParam(input) {
                     return
                 }
             }
+            var data = t[0].split(',')
+                var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1, data[0], data[1], data[2]).getTime()
+                window.Target = out
+                document.getElementById('label').innerHTML = data[3]
         })
     }
+
     var x = setInterval(() => {
         // Find the distance between now and the next target
         var distance = Target - new Date().getTime();
+
         // Time calculations for hours, minutes and seconds
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 'h '
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 'm '
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
 
         // Update the Timer Element
-        document.getElementById("timer").innerHTML = hours + "h " +
-            minutes + "m " + seconds + "s ";
+        document.getElementById("timer").innerHTML = hours + minutes + seconds;
 
-        // Refresh the page if time is up (loads the next time)
+        // Refresh the page if time is up (loads the next target)
         if (distance < 0) {
             window.top.location.href = window.top.location.href
         }
