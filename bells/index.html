@@ -14,9 +14,11 @@
         line-height: 15vh;
     }
 
-    h1.label {
-        font-size: 10vw;
-    }
+  h1.label {
+    font-size: clamp(5vw 10em, 90vw);
+    font-stretch: normal ;
+
+  }
 
     hr.hide {
         color: transparent;
@@ -34,11 +36,12 @@
 <script>
     function run() {
         try {
-        if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
-            document.body.style.backgroundColor='black'
-            document.body.style.color = 'blue'
-        }} catch {}
-
+            if (
+                window.top.location.href.split('?')[1].includes('darkmode=true')) {
+                document.body.style.backgroundColor='black'
+                document.body.style.color = 'blue'
+            }
+        } catch {}
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
             for (x = 0; x < t.length; x++) {
                 var data = t[x].split(',')
@@ -51,8 +54,6 @@
             }
         })
     }
-
-
     var x = setInterval(() => {
         // Find the distance between now and the next target
         var distance = Target - new Date().getTime();
@@ -70,6 +71,4 @@
             window.top.location.href = window.top.location.href
         }
     }, 1000)
-</script>
-
-</html>
+</script></html>
