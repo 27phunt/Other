@@ -1,0 +1,52 @@
+<html>
+<style>
+body {
+align-content: center;
+text-align: center;
+}
+button {
+    font-size: 2vw;
+    height:10vh;
+    width: 50vw;
+    background-color: white;
+    border: 1px solid black;
+}
+button:hover {
+background-color: black;
+color: white;
+}
+input {
+    text-align: center;
+    font-size: 2vw;
+    height:10vh;
+    width: 50vw;
+}
+hr {
+color: transparent;
+
+}
+h1 {
+font-size: 10vw;
+line-height: 5%;
+}
+t1 {
+    font-size:1vw
+}
+</style>
+<body>
+<h1>Paywall Bypasser</h1>
+<br><br>
+<input id="input" placeholder="url" required>
+<br><br>
+<button onclick="run()">Open Page</button>
+
+</body><script>
+const script = 'https://script.google.com/macros/s/AKfycbxwugIEbAqDCBPAwdkIlXT7nH2H-PFcspOKYg9vHgMLhU3DtHDwslUnLTblA9rEQ-xn/exec'
+ 
+function run() {
+var input = document.getElementById('input').value
+if (input =='') {alert('URL is blank')}
+window.top.location.href = script + '?' + input
+}
+
+</script></html>
