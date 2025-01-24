@@ -14,10 +14,6 @@
       font-size: clamp(5vw 10em, 90vw);
       font-stretch: normal ;
       }
-      hr.hide {
-      color: transparent;
-      font-size: 12vh;
-      }
       button.hide {
       color: transparent;
       height: 0;
@@ -25,12 +21,21 @@
       background-color: transparent;
       border-color: transparent;
       }
-      button.show {
-      color: black;
-      background-color: grey;
-      border-color: black;
+      button.bdark {
+      color: blue;
+      background-color: black;
       font-size: 5em;
       padding: 10px
+      }
+      button.blight {
+      color: black;
+      background-color: white;
+      border: 1px solid black;
+      font-size: 5em;
+      padding: 10px
+      }
+      button:hover {
+        background-color: grey;
       }
    </style>
    <body onload="run()">
@@ -39,65 +44,75 @@
       <hr>
       <h1 class="label" id="label"></h1>
       <hr>
-      <button id="blight" class="hide" onclick="addParam('darkmode=false')">Light Mode</button>
-      <button id="bdark" class="hide" onclick="addParam('darkmode=true')">Dark Mode</button>
-      <audio id="audio" src="https://27phunt.github.io/Other/bells/audio.mp3"></audio>
+      <button id="blight" class="hide" onclick="window.top.location.href = '?darkmode=false'">Light Mode</button>
+      <button id="bdark" class="hide" onclick="window.top.location.href = '?darkmode=true'">Dark Mode</button>
+      <audio id="audio" src="audio.mp3"></audio>
    </body>
    <script>
-      function addParam(input) {
-          window.top.location.href = window.top.location.href + '?' + input
-      }
-      
-          function run() {
-            if(!window.top.location.href.includes('darkmode=')) {
-              document.getElementById('blight').setAttribute('class','show')
-              document.getElementById('bdark').setAttribute('class','show')
-              
-              document.getElementById('timer').innerHTML = 'Bells Timer'
-              document.getElementById('label').innerHTML = 'Select a Theme'
-          return
-          }
-                  if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
-                      document.body.style.backgroundColor = 'black'
-                      document.body.style.color = 'blue'
-                  }
-              getTarget()
-              }
-      
-      function getTarget() {
-              fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
-                  for (x = 0; x < t.length; x++) {
-                      var data = t[x].split(',')
-                      var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), data[0], data[1], data[2]).getTime()
-                      if (new Date().getTime() < out) {
-                          document.getElementById('label').innerHTML = data[3]
-                          window.Target = out
-                          return
-                      }
-                  }
-                  var data = t[0].split(',')
-                      var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1, data[0], data[1], data[2]).getTime()
-                      window.Target = out
-                      document.getElementById('label').innerHTML = data[3]
-              })
-          }
-
-          var x = setInterval(() => {
-              // Find the distance between now and the next target
-              var distance = Target - new Date().getTime();
-              // Time calculations for hours, minutes and seconds
-              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 'h '
-              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 'm '
-              var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
-      
-              // Update the Timer Element
-              document.getElementById("timer").innerHTML = hours + minutes + seconds
-      
-              // Refresh the page if time is up (loads the next target)
-              if (distance < 1) {
-                document.getElementById('audio').play()
-                getTarget()  
+    function run() {
+        // Run the following if a theme has not been selected
+        if(!window.top.location.href.includes('darkmode=')) {
+            // Reveal the theme option buttons
+            document.getElementById('blight').setAttribute('class','blight')
+            document.getElementById('bdark').setAttribute('class','bdark')
+            // Change the 'timer' and 'label' elements to the following text
+            document.getElementById('timer').innerHTML = 'Bells Timer'
+            document.getElementById('label').innerHTML = 'Select a Theme'
+            // Stop the 'run()' function at this point
+            return
+        }
+        // Run the following if dark mode is enabled
+        if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
+            // Change the background color and font color
+            document.body.style.backgroundColor = 'black'
+            document.body.style.color = 'blue'
+        }
+        // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
+            // Search through the 't' (split by line) for the next bell
+            for (x = 0; x < t.length; x++) {
+                // Set 'data' to the current line of 't' split by ','
+                var data = t[x].split(',')
+                // Gets the value of 'data' in unix time as 'out'
+                var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), data[0], data[1], data[2]).getTime()
+                // Run the following if 'out' is greater than the current unix time
+                if (new Date().getTime() < out) {
+                    // Set the 'label' element to the label value 
+                    document.getElementById('label').innerHTML = data[3]
+                    // Set the global variable 'Target' to the unix time value of the next bell
+                    window.Target = out
+                    return
+                }
             }
-          }, 1000)
-   </script>
-</html>
+            // Carries over to the first bell tommorrow if no bells are left today
+            var data = t[0].split(',')
+            // Set the global variable 'Target' to the unix time value of the next bell
+            window.Target = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1, data[0], data[1], data[2]).getTime()
+            // Set the 'label' element to the label value             
+            document.getElementById('label').innerHTML = data[3]
+        })
+    }
+
+    // Runs the following function every second
+    var r1 = setInterval(() => {
+        // Sets the variable 'distance' to the difference between the current time and the 'Target' global variable
+        var distance = Target - new Date().getTime();
+        // Convert 'distance' to hours, minutes and seconds
+        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 'h '
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 'm '
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
+        // Update the Timer Element
+        document.getElementById("timer").innerHTML = hours + minutes + seconds
+        if (distance < 1) {
+            // Play bell sound
+            document.getElementById('audio').play()
+            // Get The Next Bell
+            run()
+        }
+    }, 1000)
+
+    // Execute the 'run()' function every 10 seconds (in case of error)
+    var r2 = setInterval(() => {
+        run()
+    },10000)
+</script></html>
