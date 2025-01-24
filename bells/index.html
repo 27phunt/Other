@@ -71,6 +71,11 @@ function addParam(input) {
                 document.body.style.backgroundColor = 'black'
                 document.body.style.color = 'blue'
             }
+        getTarget()
+        setInterval(() => {getTarget()}, 5000)
+        }
+
+function getTarget() {
         fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
             for (x = 0; x < t.length; x++) {
                 var data = t[x].split(',')
