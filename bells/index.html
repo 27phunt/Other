@@ -1,113 +1,104 @@
 <html>
-<title>Bell Timer</title>
-<style>
-
-    body {
-        text-align: center;
-        color: black;
-        background-color: white;
-    }
-
-    h1.timer {
-        font-size: 15vw;
-
-        line-height: 15vh;
-    }
-
-  h1.label {
-    font-size: clamp(5vw 10em, 90vw);
-    font-stretch: normal ;
-
-  }
-
-    hr.hide {
-        color: transparent;
-        font-size: 12vh;
-    }
-
-    button.hide {
-        color: transparent;
-        height: 0;
-        width: 0;
-        background-color: transparent;
-        border-color: transparent;
-    }
-    button.show {
-        color: black;
-        height: 5em;
-        width: 20em;
-        background-color: cyan;
-        border-color: black;
-        font-size: 1em;
-        padding: none
-    }
-</style>
-
-<body onload="run()">
-    <hr>
-    <h1 class="timer" id="timer"></h1>
-    <hr>
-    <h1 class="label" id="label"></h1>
-    <hr>
-    <button id="blight" class="hide" onclick="addParam('darkmode=false')">Light Mode</button>
-    <button id="bdark" class="hide" onclick="addParam('darkmode=true')">Dark Mode</button>
-</body>
-<script>
-function addParam(input) {
-    window.top.location.href = window.top.location.href + '?' + input
-}
-
-    function run() {
-        
-    if(!window.top.location.href.includes('darkmode=')) {
-        document.getElementById('blight').setAttribute('class','show')
-        document.getElementById('bdark').setAttribute('class','show')
-        
-        document.getElementById('timer').innerHTML = 'Bell Timer'
-        document.getElementById('label').innerHTML = 'Select a Theme'
-    return
-    }
-            if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
-                document.body.style.backgroundColor = 'black'
-                document.body.style.color = 'blue'
-            }
-        getTarget()
-        setInterval(() => {getTarget()}, 5000)
-        }
-
-function getTarget() {
-        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
-            for (x = 0; x < t.length; x++) {
-                var data = t[x].split(',')
-                var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), data[0], data[1], data[2]).getTime()
-                if (new Date().getTime() < out) {
-                    document.getElementById('label').innerHTML = data[3]
-                    window.Target = out
-                    return
-                }
-            }
-            var data = t[0].split(',')
-                var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1, data[0], data[1], data[2]).getTime()
-                window.Target = out
-                document.getElementById('label').innerHTML = data[3]
-        })
-    }
-
-    var x = setInterval(() => {
-        // Find the distance between now and the next target
-        var distance = Target - new Date().getTime();
-
-        // Time calculations for hours, minutes and seconds
-        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 'h '
-        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 'm '
-        var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
-
-        // Update the Timer Element
-        document.getElementById("timer").innerHTML = hours + minutes + seconds;
-
-        // Refresh the page if time is up (loads the next target)
-        if (distance < 0) {
-            window.top.location.href = window.top.location.href
-        }
-    }, 1000)
-</script></html>
+   <title>Bell Timer</title>
+   <style>
+      body {
+      text-align: center;
+      color: black;
+      background-color: white;
+      }
+      h1.timer {
+      font-size: 15vw;
+      line-height: 15vh;
+      }
+      h1.label {
+      font-size: clamp(5vw 10em, 90vw);
+      font-stretch: normal ;
+      }
+      hr.hide {
+      color: transparent;
+      font-size: 12vh;
+      }
+      button.hide {
+      color: transparent;
+      height: 0;
+      width: 0;
+      background-color: transparent;
+      border-color: transparent;
+      }
+      button.show {
+      color: black;
+      background-color: grey;
+      border-color: black;
+      font-size: 5em;
+      padding: 10px
+      }
+   </style>
+   <body onload="run()">
+      <hr>
+      <h1 class="timer" id="timer"></h1>
+      <hr>
+      <h1 class="label" id="label"></h1>
+      <hr>
+      <button id="blight" class="hide" onclick="addParam('darkmode=false')">Light Mode</button>
+      <button id="bdark" class="hide" onclick="addParam('darkmode=true')">Dark Mode</button>
+   </body>
+   <script>
+      function addParam(input) {
+          window.top.location.href = window.top.location.href + '?' + input
+      }
+      
+          function run() {
+              
+          if(!window.top.location.href.includes('darkmode=')) {
+              document.getElementById('blight').setAttribute('class','show')
+              document.getElementById('bdark').setAttribute('class','show')
+              
+              document.getElementById('timer').innerHTML = 'Bells Timer'
+              document.getElementById('label').innerHTML = 'Select a Theme'
+          return
+          }
+                  if (window.top.location.href.split('?')[1].includes('darkmode=true')) {
+                      document.body.style.backgroundColor = 'black'
+                      document.body.style.color = 'blue'
+                  }
+              getTarget()
+              setInterval(() => {getTarget()}, 5000)
+              }
+      
+      function getTarget() {
+              fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vT8H2tfx7UP7xtX1nZvu-C-u5zBtyXY6kzWZUErW9VLDm_WQyvto3vZChOBwHeRssdXNEf-uGDfnGOw/pub?gid=135452470&single=true&output=csv').then(r => r.text()).then(t => t.split('\n')).then(t => {
+                  for (x = 0; x < t.length; x++) {
+                      var data = t[x].split(',')
+                      var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), data[0], data[1], data[2]).getTime()
+                      if (new Date().getTime() < out) {
+                          document.getElementById('label').innerHTML = data[3]
+                          window.Target = out
+                          return
+                      }
+                  }
+                  var data = t[0].split(',')
+                      var out = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate()+1, data[0], data[1], data[2]).getTime()
+                      window.Target = out
+                      document.getElementById('label').innerHTML = data[3]
+              })
+          }
+      
+          var x = setInterval(() => {
+              // Find the distance between now and the next target
+              var distance = Target - new Date().getTime();
+      
+              // Time calculations for hours, minutes and seconds
+              var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)) + 'h '
+              var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + 'm '
+              var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
+      
+              // Update the Timer Element
+              document.getElementById("timer").innerHTML = hours + minutes + seconds;
+      
+              // Refresh the page if time is up (loads the next target)
+              if (distance < 0) {
+                  window.top.location.href = window.top.location.href
+              }
+          }, 1000)
+   </script>
+</html>
