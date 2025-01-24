@@ -41,6 +41,7 @@
       <hr>
       <button id="blight" class="hide" onclick="addParam('darkmode=false')">Light Mode</button>
       <button id="bdark" class="hide" onclick="addParam('darkmode=true')">Dark Mode</button>
+      <audio autoplay id="audio"></audio>
    </body>
    <script>
       function addParam(input) {
@@ -48,7 +49,6 @@
       }
       
           function run() {
-              
           if(!window.top.location.href.includes('darkmode=')) {
               document.getElementById('blight').setAttribute('class','show')
               document.getElementById('bdark').setAttribute('class','show')
@@ -96,7 +96,8 @@
               document.getElementById("timer").innerHTML = hours + minutes + seconds;
       
               // Refresh the page if time is up (loads the next target)
-              if (distance < 0) {
+              if (distance < 1) {
+                document.getElementById('audio').setAttribute('src','audio.mp3')
                   window.top.location.href = window.top.location.href
               }
           }, 1000)
