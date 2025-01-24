@@ -103,9 +103,9 @@
         var seconds = Math.floor((distance % (1000 * 60)) / 1000) + 's'
         // Update the Timer Element
         document.getElementById("timer").innerHTML = hours + minutes + seconds
-        if (distance < 10) {
+        if (distance < 5) {
             // Play bell sound
-            document.getElementById('audio').play()
+            
         }
         if (distance < 1) {
             // Get The Next Bell
