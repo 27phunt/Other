@@ -44,8 +44,8 @@
       <hr>
       <h1 class="label" id="label"></h1>
       <hr>
-      <button id="blight" class="hide" onclick="window.top.location.href = '&darkmode=false'">Light Mode</button>
-      <button id="bdark" class="hide" onclick="window.top.location.href = '&darkmode=true'">Dark Mode</button>
+      <button id="blight" class="hide" onclick="window.top.location.href = window.top.location.href +'&darkmode=false'">Light Mode</button>
+      <button id="bdark" class="hide" onclick="window.top.location.href = window.top.location.href + '&darkmode=true'">Dark Mode</button>
       <audio id="audio" src="audio.mp3"></audio>
    </body>
    <script>
@@ -68,7 +68,7 @@
             document.body.style.color = 'blue'
         }
         // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
-        var sheetid = window.location.pathname.split('?')[1].split('sheetID=')[1].split('&')[0]
+        var sheetid = window.top.location.href.split('?')[1].split('sheetID=')[1].split('&')[0]
         var url = `https://docs.google.com/spreadsheets/d/e/2PACX-1vSpCGPjxAqLoMz8Y7Dy9LtrBjjMDw26Fhwri-AZhY9IRUB7bildtgL5WYTJDUzO9c0HBIqT5wF-SUwG/pub?gid=`+sheetid+`&single=true&output=csv`
         fetch(url).then(r => r.text()).then(t => t.split('\n')).then(t => {
             // Search through the 't' (split by line) for the next bell
