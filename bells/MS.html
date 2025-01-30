@@ -50,9 +50,10 @@
       <audio id="audio" src="audio.mp3"></audio>
    </body>
    <script>
-    var sch = window.top.location.href.split('?')[1].split('sch=')[1].split('&')[0]
+    var sch = window.top.location.href.split('sch=')[1].substring(0,1)
     const sheets = {'HS':'135452470', 'MS':'917992683', 'ES':'581887888' }
     function run() {
+        alert(sch)
         // Run the following if a theme has not been selected
         if(!window.top.location.href.includes('darkmode=')) {
             // Reveal the theme option buttons
