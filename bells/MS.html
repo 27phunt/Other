@@ -50,6 +50,7 @@
       <audio id="audio" src="audio.mp3"></audio>
    </body>
    <script>
+    var sch = window.location.pathname.split('/')[window.location.pathname.split('/').length-1].split('.html')[0]
     const sheets = {'HS':'135452470', 'MS':'917992683', 'ES':'581887888' }
     function run() {
         // Run the following if a theme has not been selected
@@ -59,7 +60,7 @@
             document.getElementById('bdark').setAttribute('class','bdark')
             // Change the 'timer' and 'label' elements to the following text
             document.getElementById('timer').innerHTML = 'Bell Timer'
-            document.getElementById('label').innerHTML = 'Created by Phil H.'
+            document.getElementById('label').innerHTML = {'HS':'High', 'MS':'Middle','ES':'High'}[sch] + ' School'
             // Stop the 'run()' function at this point
             return
         }
@@ -70,9 +71,7 @@
             document.body.style.color = 'blue'
         }
         // Fetch and import Data as 't' From the Backend of The Bell Timer v1 Google Sheet
-        var sheet = sheets[window.location.pathname.split('/')[window.location.pathname.split('/').length-1].split('.html')[0]]
-        alert(sheet)
-        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid='+sheetID+'&single=true&output=csv')
+        fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vS8EGwkTMFJvKzMEPVXAo-a_DvNwKw8v5ZCk7VEDCFcEEoZC9Q1FBL5UgXDycYO4LZ_CAogkuPXXo9V/pub?gid='+sheets[sch]+'&single=true&output=csv')
             .then(r => r.text()).then(t => t.split('\n')).then(t => {
             // Search through the 't' (split by line) for the next bell
             for (x = 0; x < t.length; x++) {
