@@ -50,7 +50,7 @@
       <audio id="audio" src="audio.mp3"></audio>
    </body>
    <script>
-    var sch = window.location.pathname.split('/')[window.location.pathname.split('/').length-1].split('.html')[0]
+    var sch = window.top.location.href.split('?')[1].split('sch=')[1].split('&')[0]
     const sheets = {'HS':'135452470', 'MS':'917992683', 'ES':'581887888' }
     function run() {
         // Run the following if a theme has not been selected
