@@ -1,10 +1,18 @@
 <script>
     const onload = run()
     function run() {
-    alert(`
-    This application has been deprecated
-    Press 'Ok' to open the latest release`)
-    window.top.location.href = 'https://27phunt.github.io/bells/?sch=HS'
+        try {
+    if (window.top.location.href.split('darkmode=')[1].substring(0,4).includes('true')) {
+        var dm = true
+    } else {
+        var dm = false
     }
+    window.top.location.href = 'https://27phunt.github.io/bells/?sch=HS&darkmode='+dm
+}catch {
+    window.top.location.href = 'https://27phunt.github.io/bells/?sch=HS'
+}
+
+    
+}
     </script>
     
