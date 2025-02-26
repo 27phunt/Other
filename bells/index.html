@@ -1,19 +1,9 @@
 <script>
-    const onload = run('http://192.168.1.14')
-    function run(url) {
+        const url = 'https://27phunt.github.io/bells'
         try {
-    if (window.top.location.href.split('darkmode=')[1].substring(0,4).includes('true')) {
-        var dm = true
-    } else {
-        var dm = false
-    }
-        
-    window.top.location.href = url + '/?sch=HS&darkmode='+dm
+    window.top.location.href = url + '/?sch=HS&darkmode='+window.top.location.href.split('darkmode=')[1].substring(0,4).includes('true')
 }catch {
     window.top.location.href = url + '/?sch=HS'
-}
-
-    
 }
     </script>
     
